@@ -37,7 +37,7 @@ enum class ConfigureKotlinStatus {
 
 interface KotlinProjectConfigurator {
 
-    fun getStatus(module: Module): ConfigureKotlinStatus
+    fun getStatus(module: Module, sourceRootModules: Collection<Module>): ConfigureKotlinStatus
 
     @JvmSuppressWildcards fun configure(project: Project, excludeModules: Collection<Module>)
 

@@ -46,12 +46,12 @@ import java.util.*
 
 abstract class KotlinWithGradleConfigurator : KotlinProjectConfigurator {
 
-    override fun getStatus(module: Module): ConfigureKotlinStatus {
+    override fun getStatus(module: Module, sourceRootModules: Collection<Module>): ConfigureKotlinStatus {
         if (!isApplicable(module)) {
             return ConfigureKotlinStatus.NON_APPLICABLE
         }
 
-        if (hasAnyKotlinRuntimeInScope(module)) {
+        if (sourceRootModules.all { module -> hasAnyKotlinRuntimeInScope(module) }) {
             return ConfigureKotlinStatus.CONFIGURED
         }
 

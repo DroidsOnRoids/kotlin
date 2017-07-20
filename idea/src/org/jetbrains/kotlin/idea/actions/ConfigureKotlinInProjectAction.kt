@@ -26,7 +26,6 @@ import org.jetbrains.kotlin.idea.configuration.*
 import org.jetbrains.kotlin.idea.util.projectStructure.allModules
 import org.jetbrains.kotlin.js.resolve.JsPlatform
 import org.jetbrains.kotlin.resolve.jvm.platform.JvmPlatform
-import org.jetbrains.kotlin.utils.ifEmpty
 
 abstract class ConfigureKotlinInProjectAction : AnAction() {
 
@@ -35,8 +34,8 @@ abstract class ConfigureKotlinInProjectAction : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
 
-        val modules = getConfigurableModulesWithKotlinFiles(project).ifEmpty { project.allModules() }
-        if (modules.all(::isModuleConfigured)) {
+        val modules = getConfigurableModules(project)
+        if (modules.allConfigured()) {
             Messages.showInfoMessage("All modules with Kotlin files are configured", e.presentation.text!!)
             return
         }
